@@ -1,43 +1,53 @@
+import java.util.Random;
+
 /**
 * TicTacToe
-* UC1 initializes and displays an empty Tic-Tac-Toe board in a proper * grid format. This use case introduces 2D arrays, nested loops, * and formatted console output.
+* UC2 performs a random toss to decide who plays first and assigns 
+* symbols (X or 0) to the human and computer accordingly.
 */
 
-public class Main {
+public class TicTacToe {
 
-    static char[][] board = new char[3][3];
+    static boolean isHumanTurn;
+    static char humanSymbol;
+    static char computerSymbol;
 
     /**
-    * Entry point of the program. It initializes the board and prints * the empty grid on the console.
+    * Entry point of the program. Executes the toss logic and displays 
+    * the result of turn and symbol assignment.
     */
     public static void main(String[] args) {
-        initializeBoard();
-        printBoard();
-    }
-
-    /* 
-    Initializes the 3x3 board by filling each cell with '-' to indicate * an empty position. Students should focus on correct nested loop usage.
-    */
-    static void initializeBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                board[i][j] = '-';
-            }
-        }
+        tossAndAssignSymbols();
+        displayTossResult();
     }
 
     /**
-    Prints the Tic-Tac-Toe board using horizontal and vertical separators so that the grid structure is clearly visible to the user.
+    * Uses random logic to decide the first player and assigns symbols 
+    * based on the toss outcome. This method initializes the game state.
     */
-    static void printBoard() {
-        System.out.println("-------------");
-        for (int row = 0; row < 3; row++) {
-            System.out.print("| ");
-            for (int col = 0; col < 3; col++) {
-                System.out.print(board[row][col] + " | ");
-            }
-            System.out.println();
-            System.out.println("-------------");
+    static void tossAndAssignSymbols() {
+        Random rand = new Random();
+        boolean toss = rand.nextBoolean();
+
+        if (toss) {
+            isHumanTurn = true;
+            humanSymbol = 'X';
+            computerSymbol = 'O';
+        } else {
+            isHumanTurn = false;
+            humanSymbol = 'O';
+            computerSymbol = 'X';
         }
+    }
+
+    static void displayTossResult() {
+        if (isHumanTurn) {
+            System.out.println("Human plays first");
+        } else {
+            System.out.println("Computer plays first");
+        }
+
+        System.out.println("Human Symbol: " + humanSymbol);
+        System.out.println("Computer Symbol: " + computerSymbol);
     }
 }
